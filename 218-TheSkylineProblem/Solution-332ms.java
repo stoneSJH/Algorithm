@@ -3,9 +3,9 @@ import java.util.List;
 
 public class Solution {
     public List<int[]> getSkyline(int[][] buildings) {
-        return getSkyline(buildings, 0, buildings.length-1);
+        return _getSkyline(buildings, 0, buildings.length-1);
     }
-    private List<int[]> getSkyline(int[][] buildings, int low, int high){
+    private List<int[]> _getSkyline(int[][] buildings, int low, int high){
         List<int[]> result = new ArrayList<>();
         if(low > high)
         	return result;
@@ -17,8 +17,8 @@ public class Solution {
         int mid = (low + high) / 2;
         //divide and conquer
         //hold two list
-        List<int[]> left = getSkyline(buildings, low, mid);
-        List<int[]> right = getSkyline(buildings, mid+1, high);
+        List<int[]> left = _getSkyline(buildings, low, mid);
+        List<int[]> right = _getSkyline(buildings, mid+1, high);
         result = _findPoint(result, left, right);
         return result;
     }
