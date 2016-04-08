@@ -1,4 +1,4 @@
-#define MS4T1002
+//#define MS4T1002
 #ifdef MS4T1002
 #include <iostream>
 #include<string>
@@ -28,8 +28,6 @@ int main()
 	int n, m;
 	vector<int*> allowList;
 	vector<int> allowMask;
-	vector<int*> denyList;
-	vector<int> denyMask;
 	vector<int> result;
 	cin >> n >> m;
 
@@ -42,16 +40,16 @@ int main()
 		int count = 0, sum = 0, mask = 0;
 		int flag = 0, maskflag = 0;;
 		int len = strlen(str);
-		int addr[32];
+		int *addr = new int[33];
 		if (mark == "allow")
-			flag = 1;
+			addr[32] = 1;
 		else if (mark == "deny")
-			flag = 0;
+			addr[32] = 0;
 		for (int i = 0; i <= len; i++)
 		{
 			if (str[i] != '.' && i != len && maskflag == 0 && str[i] != '/')
 				sum = sum * 10 + str[i] - '0';
-			else if (maskflag == 0 && (str[i] == '.' || str[i] == '/'))
+			else if (maskflag == 0 && ((str[i] == '.' || str[i] == '/') || i == len))
 			{
 				if (str[i] == '/')
 					maskflag = 1;
@@ -69,31 +67,10 @@ int main()
 		}
 		if (maskflag == 0)
 			mask = -1;
-		for (int ll = 0; ll < 32; ll++)
-			cout << addr[ll];
-		cout << endl;
-		if (flag == 1)
-		{
-			allowList.push_back(addr);
-			allowMask.push_back(mask);
-		}
-		else
-		{
-			denyList.push_back(addr);
-			denyMask.push_back(mask);
-		}
+		allowList.push_back(addr);
+		allowMask.push_back(mask);
 	}
-	for (int l = 0; l < allowList.size(); l++){
-		for (int ll = 0; ll < 32; ll++)
-			cout << allowList[l][ll];
-		cout << endl;
-	}
-	for (int l = 0; l < denyList.size(); l++){
-		for (int ll = 0; ll < 32; ll++)
-			cout << denyList[l][ll];
-		cout << endl;
-	}
-	for (int l = 0; l < n; l++){
+	for (int l = 0; l < m; l++){
 		char str[MAX];
 		cin >> str;
 		int addr[32];
@@ -126,32 +103,18 @@ int main()
 					break;
 			}
 			if (k == length){
-				cout << "YES" << endl;
+				if (allowList[j][32] == 1)
+					cout << "YES" << endl;
+				else
+					cout << "NO" << endl;
 				flag = 1;
 			}
-			if (flag == 1)
+			if (flag == 1){
 				break;
-		}
-		if (flag == 0){
-			for (int j = 0; j < denyList.size(); j++){
-				int length;
-				if (denyMask[j] != -1)
-					length = denyMask[j];
-				else
-					length = 32;
-				int k;
-				for (k = 0; k < length; k++){
-					if (addr[k] != denyList[j][k])
-						break;
-				}
-				if (k == length){
-					cout << "NO" << endl;
-					flag = 1;
-				}
-				if (flag == 1)
-					break;
 			}
 		}
+		if (flag == 0)
+			cout << "YES" << endl;
 	}
 	return 0;
 }
