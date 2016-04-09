@@ -1,4 +1,4 @@
-//#define MS4T1002
+#define MS4T1002
 #ifdef MS4T1002
 #include <iostream>
 #include<string>
