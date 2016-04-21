@@ -1,4 +1,4 @@
-#define SORTS
+//#define SORTS
 #ifdef SORTS
 #include <iostream>
 #include <fstream>
@@ -240,10 +240,12 @@ int main(){
 	//ShellSort(a, n);
 	//MergeSort(a, n);
 	//HeapSort(a, n);
-	RadixSort(a, n);
+	//RadixSort(a, n);
 	//cout << -17 % 10 << endl;
-	for (int i = 0; i < n; i++)
-		cout << a[i] << endl;
+	//for (int i = 0; i < n; i++)
+	//	cout << a[i] << endl;
+	double k = 1 / 3;
+	cout << k  << endl;
 	return 0;
 
 }
